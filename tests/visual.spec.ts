@@ -1,0 +1,87 @@
+import { expect, test } from '@playwright/test';
+
+const routes = [
+  { name: 'home', path: '/' },
+  { name: 'certifications', path: '/certifications' },
+  { name: 'employers', path: '/employers' },
+  { name: 'colleges', path: '/colleges' },
+  { name: 'privacy', path: '/privacy' },
+  { name: 'terms', path: '/terms' },
+  { name: 'offline', path: '/offline' },
+] as const;
+
+const viewports = [
+  { name: '360x800', width: 360, height: 800 },
+  { name: '390x844', width: 390, height: 844 },
+  { name: '430x932', width: 430, height: 932 },
+  { name: '768x1024', width: 768, height: 1024 },
+  { name: '1024x768', width: 1024, height: 768 },
+  { name: '1366x768', width: 1366, height: 768 },
+  { name: '1440x900', width: 1440, height: 900 },
+  { name: '1920x1080', width: 1920, height: 1080 },
+] as const;
+
+async function settle(page: import('@playwright/test').Page) {
+  await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'light' });
+  await page.addStyleTag({
+    content: `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}`,
+  });
+  await page.evaluate(async () => {
+    if ('fonts' in document) await document.fonts.ready;
+  });
+}
+
+test.describe('visual acceptance screenshots', () => {
+  test.setTimeout(10 * 60 * 1000);
+
+  test('capture every public screen across target viewports', async ({ page }) => {
+    for (const viewport of viewports) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+
+      for (const route of routes) {
+        await page.goto(route.path, { waitUntil: 'networkidle' });
+        await settle(page);
+        await expect(page.locator('main')).toBeVisible();
+        await page.screenshot({
+          path: `visual-artifacts/${viewport.name}/${route.name}.png`,
+          fullPage: true,
+        });
+      }
+    }
+  });
+
+  test('capture application sheet on mobile and desktop', async ({ page }) => {
+    for (const viewport of [viewports[1], viewports[6]]) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto('/#jobs', { waitUntil: 'networkidle' });
+      await settle(page);
+
+      const firstJob = page.getByRole('article').filter({ hasText: 'Node JS Developer' });
+      await firstJob.getByRole('button', { name: 'Apply' }).click();
+      const dialog = page.getByRole('dialog');
+      await expect(dialog).toBeVisible();
+      await page.screenshot({
+        path: `visual-artifacts/${viewport.name}/application-sheet.png`,
+        fullPage: false,
+      });
+    }
+  });
+
+  test('capture dark-mode reference screens', async ({ page }) => {
+    for (const viewport of [viewports[1], viewports[6]]) {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'dark' });
+      await page.goto('/', { waitUntil: 'networkidle' });
+      await page.addStyleTag({
+        content: `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}`,
+      });
+      await page.evaluate(async () => {
+        if ('fonts' in document) await document.fonts.ready;
+      });
+      await page.screenshot({
+        path: `visual-artifacts/${viewport.name}/home-dark.png`,
+        fullPage: true,
+      });
+    }
+  });
+});
