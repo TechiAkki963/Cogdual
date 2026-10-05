@@ -6,9 +6,11 @@ test.describe('portfolio journeys on mobile', () => {
   test('home exposes all primary audience routes', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { name: /build skills\. find talent/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /view certifications/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /employer solutions/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /college programmes/i })).toBeVisible();
+
+    const audienceRoutes = page.locator('.audience-route-grid');
+    await expect(audienceRoutes.getByRole('link', { name: /view certifications/i })).toBeVisible();
+    await expect(audienceRoutes.getByRole('link', { name: /employer solutions/i })).toBeVisible();
+    await expect(audienceRoutes.getByRole('link', { name: /college programmes/i })).toBeVisible();
   });
 
   test('certification journey exposes brands and voucher types', async ({ page }) => {
