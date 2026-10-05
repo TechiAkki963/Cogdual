@@ -21,25 +21,26 @@ const viewports = [
   { name: '1920x1080', width: 1920, height: 1080 },
 ] as const;
 
-async function settle(page: import('@playwright/test').Page) {
-  await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'light' });
+async function settle(page: import('@playwright/test').Page, colorScheme: 'light' | 'dark' = 'light') {
+  await page.emulateMedia({ reducedMotion: 'reduce', colorScheme });
   await page.addStyleTag({
     content: `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}`,
   });
   await page.evaluate(async () => {
     if ('fonts' in document) await document.fonts.ready;
   });
+  await page.waitForTimeout(80);
 }
 
 test.describe('visual acceptance screenshots', () => {
-  test.setTimeout(10 * 60 * 1000);
+  test.setTimeout(8 * 60 * 1000);
 
   test('capture every public screen across target viewports', async ({ page }) => {
     for (const viewport of viewports) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
 
       for (const route of routes) {
-        await page.goto(route.path, { waitUntil: 'networkidle' });
+        await page.goto(route.path, { waitUntil: 'domcontentloaded' });
         await settle(page);
         await expect(page.locator('main')).toBeVisible();
         await page.screenshot({
@@ -53,7 +54,7 @@ test.describe('visual acceptance screenshots', () => {
   test('capture application sheet on mobile and desktop', async ({ page }) => {
     for (const viewport of [viewports[1], viewports[6]]) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto('/#jobs', { waitUntil: 'networkidle' });
+      await page.goto('/#jobs', { waitUntil: 'domcontentloaded' });
       await settle(page);
 
       const firstJob = page.getByRole('article').filter({ hasText: 'Node JS Developer' });
@@ -70,14 +71,8 @@ test.describe('visual acceptance screenshots', () => {
   test('capture dark-mode reference screens', async ({ page }) => {
     for (const viewport of [viewports[1], viewports[6]]) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'dark' });
-      await page.goto('/', { waitUntil: 'networkidle' });
-      await page.addStyleTag({
-        content: `*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}`,
-      });
-      await page.evaluate(async () => {
-        if ('fonts' in document) await document.fonts.ready;
-      });
+      await page.goto('/', { waitUntil: 'domcontentloaded' });
+      await settle(page, 'dark');
       await page.screenshot({
         path: `visual-artifacts/${viewport.name}/home-dark.png`,
         fullPage: true,
