@@ -3,13 +3,16 @@
    backgrounds that carry white foreground text. */
 @media (prefers-color-scheme: dark) {
   .hero-visual,
-  .contact-panel {
+  .contact-panel,
+  .brand-board,
+  .campus-quote {
     background: #17334f;
     color: #ffffff;
   }
 
   .contact-panel > p,
-  .contact-panel__kicker {
+  .contact-panel__kicker,
+  .brand-board > p {
     color: #dce5ec !important;
   }
 
