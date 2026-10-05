@@ -1,0 +1,24 @@
+/* Decorative brand surfaces stay navy in both themes.
+   --ink-2 is a semantic text token in dark mode, so it must not drive
+   backgrounds that carry white foreground text. */
+@media (prefers-color-scheme: dark) {
+  .hero-visual,
+  .contact-panel {
+    background: #17334f;
+    color: #ffffff;
+  }
+
+  .contact-panel > p,
+  .contact-panel__kicker {
+    color: #dce5ec !important;
+  }
+
+  .contact-link {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+
+  .contact-link small {
+    color: #c6d0d8;
+  }
+}
