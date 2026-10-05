@@ -54,17 +54,21 @@ test.describe('visual acceptance screenshots', () => {
   test('capture application sheet on mobile and desktop', async ({ page }) => {
     for (const viewport of [viewports[1], viewports[6]]) {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await page.goto('/#jobs', { waitUntil: 'domcontentloaded' });
+      await page.goto('/', { waitUntil: 'load' });
       await settle(page);
+      await page.locator('#jobs').scrollIntoViewIfNeeded();
+      await page.waitForTimeout(350);
 
       const firstJob = page.getByRole('article').filter({ hasText: 'Node JS Developer' });
-      await firstJob.getByRole('button', { name: 'Apply' }).click();
-      const dialog = page.getByRole('dialog');
-      await expect(dialog).toBeVisible();
+      const applyButton = firstJob.getByRole('button', { name: 'Apply' });
+      await expect(applyButton).toBeVisible();
+      await applyButton.click();
+      await expect(page.getByRole('heading', { name: 'Apply in under a minute' })).toBeVisible({ timeout: 10_000 });
       await page.screenshot({
         path: `visual-artifacts/${viewport.name}/application-sheet.png`,
         fullPage: false,
       });
+      await page.getByRole('button', { name: 'Close application form' }).click();
     }
   });
 
