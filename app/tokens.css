@@ -1,0 +1,68 @@
+:root {
+  color-scheme: light dark;
+
+  --ink: #0b1f33;
+  --ink-2: #17334f;
+  --gold: #daa520;
+  --gold-soft: #f1df9a;
+  --paper: #fbf8f1;
+  --surface: #ffffff;
+  --surface-2: #f2eee5;
+  --muted: #586777;
+  --support: #62716a;
+  --line: #d9d4c9;
+  --success: #23633e;
+  --danger: #a43a32;
+  --focus: #2f6feb;
+
+  --shadow-soft: 0 18px 48px rgba(11, 31, 51, 0.1);
+  --shadow-sheet: 0 -22px 80px rgba(11, 31, 51, 0.22);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: clamp(1.75rem, 6vw, 2.35rem);
+  --font-size-hero: clamp(2.65rem, 12vw, 4.9rem);
+
+  --shell: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f4eee4;
+    --ink-2: #d9e4ee;
+    --paper: #07131f;
+    --surface: #0d2133;
+    --surface-2: #142a3c;
+    --muted: #bac5cf;
+    --support: #abb7b0;
+    --line: #2d4354;
+    --gold-soft: #594715;
+    --success: #72c08f;
+    --danger: #ff9a91;
+    --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.24);
+    --shadow-sheet: 0 -22px 80px rgba(0, 0, 0, 0.45);
+  }
+}

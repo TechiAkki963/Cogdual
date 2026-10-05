@@ -1,0 +1,239 @@
+/* Dedicated service journeys */
+.subpage-hero {
+  padding: var(--space-14) 0 var(--space-12);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.subpage-hero__grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.subpage-hero h1 {
+  margin: 0;
+  max-width: 11ch;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.65rem, 12vw, 5.2rem);
+  line-height: .96;
+  letter-spacing: -.055em;
+}
+
+.subpage-hero__copy {
+  margin: var(--space-5) 0 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: var(--font-size-lg);
+}
+
+.brand-board {
+  padding: var(--space-6);
+  border-radius: 12px 34px 34px 12px;
+  background: var(--ink-2);
+  color: #fff;
+}
+
+.brand-board > p {
+  margin: 0 0 var(--space-5);
+  color: #dce5ec;
+  font-size: .86rem;
+  font-weight: 800;
+}
+
+.brand-board__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.brand-board__grid strong {
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 16px;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.15rem;
+}
+
+.split-heading {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.voucher-list {
+  border-top: 1px solid var(--line);
+}
+
+.voucher-list article,
+.employer-solution-list article,
+.programme-list article {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.voucher-list article > span,
+.employer-solution-list article > span,
+.programme-list__index {
+  color: var(--gold);
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+}
+
+.voucher-list h3,
+.employer-solution-list h2,
+.programme-list h2 {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.45rem, 6vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.voucher-list p,
+.employer-solution-list p,
+.programme-list p {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+}
+
+.certification-path {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.certification-path ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.certification-path li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.certification-path li > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #0b1f33;
+  font-weight: 900;
+}
+
+.certification-path strong { display: block; }
+.certification-path p { margin: var(--space-1) 0 0; color: var(--muted); }
+
+.editorial-callout {
+  align-self: stretch;
+  padding: var(--space-6);
+  border-left: 4px solid var(--gold);
+  background: var(--surface-2);
+}
+
+.editorial-callout h2 {
+  margin: 0;
+  max-width: 15ch;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: var(--font-size-2xl);
+  line-height: 1.05;
+}
+
+.editorial-callout > p:not(.section-kicker) { color: var(--muted); }
+
+.employer-statements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.employer-statements > div {
+  min-height: 120px;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.employer-statements > div:last-child { grid-column: 1 / -1; }
+.employer-statements strong { font-family: var(--font-display), Georgia, serif; font-size: 2.4rem; color: var(--gold); }
+.employer-statements span { color: var(--muted); font-size: .9rem; }
+
+.fee-table { border-top: 1px solid var(--line); }
+.fee-row {
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+.fee-row strong, .fee-row span { display: block; }
+.fee-row span { color: var(--muted); font-size: .82rem; }
+.fee-row > div:last-child { font-family: var(--font-display), Georgia, serif; font-size: 1.35rem; font-weight: 800; }
+
+.campus-quote {
+  min-height: 260px;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-3);
+  border-radius: 34px 12px 34px 12px;
+  background: var(--ink-2);
+  color: #fff;
+  text-align: center;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.45rem;
+}
+.campus-quote strong { color: var(--gold); font-size: 2rem; }
+.programme-list small { display: block; margin-top: var(--space-3); color: var(--support); font-weight: 700; }
+.travel-note { display: grid; gap: var(--space-5); }
+.travel-note > p { margin: 0; color: var(--muted); max-width: 66ch; }
+
+@media (min-width: 768px) {
+  .audience-route-grid { grid-template-columns: 1fr 1fr; }
+  .launch-card__layout { grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); align-items: center; }
+  .certification-preview { grid-template-columns: minmax(0, 1fr) minmax(320px, .8fr); align-items: center; }
+  .directory-layout { grid-template-columns: minmax(240px, .62fr) minmax(0, 1.38fr); gap: var(--space-14); }
+  .directory-intro { position: sticky; top: 110px; }
+  .about-editorial { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--space-14); align-items: start; }
+  .subpage-hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); align-items: center; gap: var(--space-14); }
+  .split-heading { grid-template-columns: 1fr minmax(300px, .75fr); align-items: end; }
+  .certification-path { grid-template-columns: .75fr 1.25fr; gap: var(--space-14); }
+  .employer-statements { grid-template-columns: repeat(3, 1fr); }
+  .employer-statements > div:last-child { grid-column: auto; }
+  .travel-note { grid-template-columns: .8fr 1.2fr; align-items: center; }
+}
+
+@media (min-width: 960px) {
+  .audience-route-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Keep bottom navigation through tablet widths; full navigation begins on desktop. */
+@media (min-width: 768px) and (max-width: 959px) {
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .desktop-nav { display: none; }
+  .mobile-nav { display: grid; }
+}
+
+@media (min-width: 960px) {
+  body { padding-bottom: 0; }
+  .desktop-nav { display: flex; gap: var(--space-5); }
+  .mobile-nav { display: none; }
+}
