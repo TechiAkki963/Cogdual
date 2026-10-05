@@ -1,0 +1,48 @@
+name: Visual QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'components/**'
+      - 'lib/**'
+      - 'public/**'
+      - 'tests/visual.spec.ts'
+      - 'playwright.visual.config.ts'
+      - '.github/workflows/visual-qa.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: cogdual-visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install --no-audit --no-fund
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture visual acceptance matrix
+        run: npx playwright test --config=playwright.visual.config.ts
+        env:
+          NEXT_PUBLIC_SITE_URL: https://cogdual.com
+
+      - name: Upload visual QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-qa-screenshots
+          path: visual-artifacts/
+          if-no-files-found: error
+          retention-days: 7

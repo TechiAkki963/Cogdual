@@ -30,7 +30,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run mobile and visual Playwright journeys
+      - name: Run mobile Playwright journeys
         run: npm run test:e2e
         env:
           NEXT_PUBLIC_SITE_URL: https://cogdual.com
@@ -41,14 +41,5 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Upload visual QA screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: visual-qa-screenshots
-          path: visual-artifacts/
           if-no-files-found: ignore
           retention-days: 7
