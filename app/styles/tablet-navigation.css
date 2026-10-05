@@ -1,0 +1,22 @@
+/* Keep the compact header + bottom navigation through tablet widths.
+   The six-link desktop navigation only has comfortable room above 1100px. */
+@media (min-width: 768px) and (max-width: 1099px) {
+  body {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: grid;
+  }
+
+  .consent-banner {
+    left: auto;
+    right: var(--space-6);
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    width: min(440px, calc(100vw - 48px));
+  }
+}
