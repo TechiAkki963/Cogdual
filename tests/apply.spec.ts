@@ -37,19 +37,22 @@ test('candidate can open a job and complete the application flow on mobile', asy
   const nodeJob = page.getByRole('article').filter({ hasText: 'Node JS Developer' });
   await nodeJob.getByRole('button', { name: 'Apply' }).click();
 
-  await expect(page.getByRole('heading', { name: 'Apply in under a minute' })).toBeVisible();
-  await page.getByLabel('Full name').fill('Asha Kumar');
-  await page.getByLabel('Phone').fill('+91 98765 43210');
-  await page.getByLabel('Email').fill('asha@example.com');
-  await page.getByLabel('Message').fill('Available to interview next week.');
-  await page.getByLabel('Resume').setInputFiles({
+  const applicationDialog = page.getByRole('dialog');
+  await expect(applicationDialog.getByRole('heading', { name: 'Apply in under a minute' })).toBeVisible();
+  await applicationDialog.getByLabel('Full name').fill('Asha Kumar');
+  await applicationDialog.getByLabel('Phone').fill('+91 98765 43210');
+  await applicationDialog.getByLabel('Email').fill('asha@example.com');
+  await applicationDialog.getByLabel('Message').fill('Available to interview next week.');
+  await applicationDialog.getByLabel('Resume').setInputFiles({
     name: 'asha-resume.pdf',
     mimeType: 'application/pdf',
     buffer: Buffer.from('%PDF-1.4 test resume'),
   });
 
-  await page.getByRole('button', { name: 'Send application' }).click();
-  await expect(page.getByText('Application sent. The Cogdual recruitment team can now review your profile.')).toBeVisible();
+  await applicationDialog.getByRole('button', { name: 'Send application' }).click();
+  await expect(
+    applicationDialog.getByText('Application sent. The Cogdual recruitment team can now review your profile.'),
+  ).toBeVisible();
 });
 
 test('job chips filter remote and office roles', async ({ page }) => {
